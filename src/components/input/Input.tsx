@@ -10,7 +10,7 @@ export const Input = (props: InputPropsType) => {
     const {
         title,        
         value, 
-        callBack,               
+        callBack,
     } = props
 
     return(

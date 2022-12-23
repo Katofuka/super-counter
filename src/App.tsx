@@ -1,62 +1,94 @@
-import React, { useState } from 'react';
+import React, {useEffect, useState} from 'react';
 
 import './App.css';
-import { Button } from './components/button/Button';
-import { Input } from './components/input/Input'
+import {Button} from './components/button/Button';
+import {Input} from './components/input/Input'
 
 function App() {
-  const [startValue, setStartValue] = useState<number>(0)
-  const [endValue, setEndValue] = useState<number>(5)
-  const [count, setCount] = useState<number>(startValue)
+    const [startValue, setStartValue] = useState<number>(0)
+    const [endValue, setEndValue] = useState<number>(5)
+    const [count, setCount] = useState<number>(startValue)
+    const [editMode, setEditMode] = useState<boolean>(false)
+    const [errorMode, setErrorMode] = useState<boolean>(false)
 
-  const callBackInc = () => {
-    setCount(count + 1)
-  }
+    useEffect(() => {
+        const localStartValue = localStorage.getItem('start-value')
+        if (localStartValue) {
+            setStartValue(JSON.parse(localStartValue))
+        }
+    }, [])
 
-  const callBackReset = () => {
-    setCount(startValue)
-  }
-  const callBackSet = () => {
-    setCount(startValue)
-  }
+    useEffect(() => {
+        const localEndValue = localStorage.getItem('end-value')
+        if (localEndValue)
+            setEndValue(JSON.parse(localEndValue))
+    }, [])
 
-  const callBackInputMax = (maxValue: number) => {
-    setEndValue(maxValue)
-  }
+    useEffect(()=>{
+        endValue <= startValue || startValue < 0
+            ? setErrorMode(true)
+            : setErrorMode(false)
+        },        [editMode===true, endValue, startValue])
 
-  const callBackInputStart = (startValue: number) => {
-    setStartValue(startValue)
-  }
+    const callBackInc = () => {
+        setCount(count + 1)
+    }
 
-  const disabledButtonInc = endValue > count ? false : true
-  const disabledButtonReset = count !== startValue ? false : true
+    const callBackReset = () => {
+        setCount(startValue)
+    }
+    const callBackSet = () => {
+        setCount(startValue)
+        localStorage.setItem('start-value', JSON.stringify(startValue))
+        localStorage.setItem('end-value', JSON.stringify(endValue))
+        setEditMode(false)
+    }
 
-  return (
-    <div className="App">
-      <div className={'block-counter'}>
-        <div className={'block-input'}>
-          <Input title={'max value'} value={endValue} callBack={callBackInputMax} />
-          <Input title={'start value'} value={startValue} callBack={callBackInputStart} />
+    const callBackInputMax = (maxValue: number) => {
+        setEndValue(maxValue)
+        setEditMode(true)
+    }
+
+    const callBackInputStart = (startValue: number) => {
+        setStartValue(startValue)
+        setEditMode(true)
+    }
+
+    const disabledButtonInc = endValue > count || errorMode  ? false : true
+    const disabledButtonReset = count !== startValue || errorMode ? false : true
+
+    return (
+        <div className="App">
+            <div className={'block-counter'}>
+                <div className={'block-input'}>
+                    <Input title={'max value'}  value={endValue} callBack={callBackInputMax}/>
+                    <Input title={'start value'}  value={startValue}
+                           callBack={callBackInputStart}/>
+                </div>
+                <div className={'block-buttons'}>
+                    <Button title={'set'} callBack={callBackSet}/>
+
+                </div>
+
+            </div>
+
+            <div className={'block-counter'}>
+
+                {editMode
+                    ? errorMode
+                        ? <div className={'block-input textRed'}>Incorrect values</div>
+                        : <div className={'block-input textBlue'}>enter values and press 'set'</div>
+                    : <div className={`block-input ${endValue <= count ? 'textRed' : ''}`}> {count} </div>
+                }
+
+                <div className={'block-buttons'}>
+                    <Button title={'inc'} callBack={callBackInc} disabled={disabledButtonInc}/>
+                    <Button title={'reset'} callBack={callBackReset} disabled={disabledButtonReset}/>
+                </div>
+
+            </div>
         </div>
-        <div className={'block-buttons'}>
-          <Button title={'set'} callBack={callBackSet} />
-
-        </div>
-
-      </div>
-
-      <div className={'block-counter'}>
-        <div className={'block-input'}>
-          {count}
-        </div>
-        <div className={'block-buttons'}>
-          <Button title={'inc'} callBack={callBackInc} disabled={disabledButtonInc} />
-          <Button title={'reset'} callBack={callBackReset} disabled={disabledButtonReset} />
-        </div>
-
-      </div>
-    </div>
-  );
+    );
 }
 
 export default App;

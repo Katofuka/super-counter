@@ -68,3 +68,7 @@
   border: 2px solid rgb(145, 217, 246);
   text-align: center;
 }
+
+.textRed {
+  color: red;
+}
