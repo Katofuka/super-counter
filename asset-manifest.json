@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/github.io/super-counter/static/css/main.c6a6ce59.css",
+    "main.js": "/github.io/super-counter/static/js/main.dac40c4f.js",
+    "index.html": "/github.io/super-counter/index.html",
+    "main.c6a6ce59.css.map": "/github.io/super-counter/static/css/main.c6a6ce59.css.map",
+    "main.dac40c4f.js.map": "/github.io/super-counter/static/js/main.dac40c4f.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.c6a6ce59.css",
+    "static/js/main.dac40c4f.js"
+  ]
+}
