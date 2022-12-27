@@ -15,6 +15,7 @@ function App() {
         const localStartValue = localStorage.getItem('start-value')
         if (localStartValue) {
             setStartValue(JSON.parse(localStartValue))
+            setCount(JSON.parse(localStartValue))
         }
     }, [])
 
@@ -24,11 +25,11 @@ function App() {
             setEndValue(JSON.parse(localEndValue))
     }, [])
 
-    useEffect(()=>{
+    useEffect(() => {
         endValue <= startValue || startValue < 0
             ? setErrorMode(true)
             : setErrorMode(false)
-        },        [editMode===true, endValue, startValue])
+    }, [editMode, endValue, startValue])
 
     const callBackInc = () => {
         setCount(count + 1)
@@ -54,19 +55,19 @@ function App() {
         setEditMode(true)
     }
 
-    const disabledButtonInc = endValue > count || errorMode  ? false : true
-    const disabledButtonReset = count !== startValue || errorMode ? false : true
+    const disabledButtonInc = endValue <= count || errorMode || editMode
+    const disabledButtonReset = count < endValue || errorMode || editMode
 
     return (
         <div className="App">
             <div className={'block-counter'}>
                 <div className={'block-input'}>
-                    <Input title={'max value'}  value={endValue} callBack={callBackInputMax}/>
-                    <Input title={'start value'}  value={startValue}
+                    <Input title={'max value'} value={endValue} callBack={callBackInputMax}/>
+                    <Input title={'start value'} value={startValue}
                            callBack={callBackInputStart}/>
                 </div>
                 <div className={'block-buttons'}>
-                    <Button title={'set'} callBack={callBackSet}/>
+                    <Button title={'set'} callBack={callBackSet} disabled={errorMode}/>
 
                 </div>
 
