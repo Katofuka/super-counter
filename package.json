@@ -28,8 +28,8 @@
   },
   "eslintConfig": {
     "extends": [
-      "super-counter",
-      "super-counter/jest"
+      "react-app",
+      "react-app/jest"
     ]
   },
   "browserslist": {
