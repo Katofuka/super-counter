@@ -1,10 +1,10 @@
 {
   "files": {
-    "main.css": "/github.io/super-counter/static/css/main.c6a6ce59.css",
-    "main.js": "/github.io/super-counter/static/js/main.dac40c4f.js",
-    "index.html": "/github.io/super-counter/index.html",
-    "main.c6a6ce59.css.map": "/github.io/super-counter/static/css/main.c6a6ce59.css.map",
-    "main.dac40c4f.js.map": "/github.io/super-counter/static/js/main.dac40c4f.js.map"
+    "main.css": "/super-counter/static/css/main.c6a6ce59.css",
+    "main.js": "/super-counter/static/js/main.dac40c4f.js",
+    "index.html": "/super-counter/index.html",
+    "main.c6a6ce59.css.map": "/super-counter/static/css/main.c6a6ce59.css.map",
+    "main.dac40c4f.js.map": "/super-counter/static/js/main.dac40c4f.js.map"
   },
   "entrypoints": [
     "static/css/main.c6a6ce59.css",
