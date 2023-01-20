@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {memo} from 'react';
 
 type ButtonPropsType = {
     title: string
@@ -6,7 +6,7 @@ type ButtonPropsType = {
     disabled?: boolean
 }
 
-export const Button = (props: ButtonPropsType) => {
+export const Button = memo((props: ButtonPropsType) => {
     const {
         title,
         callBack,        
@@ -18,4 +18,4 @@ export const Button = (props: ButtonPropsType) => {
             ? <button className={'btn'} onClick={callBack} style={{backgroundColor: '#488297'}} disabled >{title}</button >
             : <button className={'btn'} onClick={callBack}>{title}</button>
     )
-}
+})

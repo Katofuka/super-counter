@@ -1,4 +1,4 @@
-import React, { ChangeEvent } from 'react';
+import React, {ChangeEvent, memo} from 'react';
 
 type InputPropsType = {
     title: string
@@ -6,7 +6,7 @@ type InputPropsType = {
     callBack: (value: number)=>void
 }
 
-export const Input = (props: InputPropsType) => {
+export const Input = memo((props: InputPropsType) => {
     const {
         title,        
         value, 
@@ -19,4 +19,4 @@ export const Input = (props: InputPropsType) => {
             <input className={'inpt'} onChange={(e:ChangeEvent<HTMLInputElement>)=>callBack(+e.currentTarget.value)} type='number' value={value} />
         </div>
     )
-}
+})
